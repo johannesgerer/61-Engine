@@ -189,7 +189,7 @@ void CObjekt::Zeichnen()
 		{
 		MatStapel.hinzu(MatSkal(laenge,breite,hoehe));
 
-		ZeichneWuerfel(1,farbe,1);
+		ZeichneWuerfel(1,farbe);  //Normalen Quader
 }
 		break;
 

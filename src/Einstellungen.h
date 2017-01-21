@@ -49,10 +49,10 @@ char* Einstellungen()
 		Anwendung.title					= "Johannes' OpenGL Framwork";
 
 	if(!Anwendung.FullScreen && !Anwendung.nachFullScreenFragen &&
-	0) //Soll bei Window-Mode diese spezielle Auflösung genommen werden?
+	1) //Soll bei Window-Mode diese spezielle Auflösung genommen werden?
 	{
-		Anwendung.viewport.breite			= 1000;									
-		Anwendung.viewport.hoehe		= 140;	
+		Anwendung.viewport.breite			= 800;									
+		Anwendung.viewport.hoehe		= 600;	
 	}
 
 	Anwendung.viewport.bitsProPixel	= atoi(find_value(parms,"bitsProPixel"));									

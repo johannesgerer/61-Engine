@@ -47,14 +47,17 @@ void CSzene::PhysikAktualisieren(double sekunden)
 {
 	Schwerpunktsberechnungen();
 
-	int Balken=1;
+	int Balken=100;
 	double sl=sekunden/Balken;
 		for(int j=0;j<Balken;j++)
 			for(int i=0;i<Anzahl_Koerper;i++)
 				m_Koerper[i]->PhysikAktualisieren(sl);
 
 	for(int i=0;i<Anzahl_Koerper;i++)
+	{
 		m_Koerper[i]->vKraft=CVektor();
+		m_Koerper[i]->vMoment=CVektor();
+	}
 
 	Schwerpunktsberechnungen();
 }
@@ -94,8 +97,8 @@ void CSzene::Zeichnen()
 	glColor4fv(Farben(9));
 	MatStapel.Normale( 0, 0, 1);
 	// Draw a 1x1 grid along the XY-Ebene
-	MatStapel.neu(MatSkal(10,10,1));
-	float k=-10;
+	MatStapel.neu(MatSkal(1));
+	float k=-1;
 	float a=50;
 	glBegin(GL_LINES);
 	for(float i=-a;i<=a;i++)

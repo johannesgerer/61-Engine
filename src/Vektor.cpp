@@ -114,7 +114,7 @@ void CVektor::operator *=(CMat M)
 
 void VektorZeichnen(int farbe,CVektor v_start,CVektor v, bool VektorDifferenz, const char* fmt, ...)
 {	
-	double faktor=3;
+	double faktor=1;
 
 	char		text[256];								// Holds Our String
 	//Start -- String umwandel
@@ -143,7 +143,7 @@ void VektorZeichnen(int farbe,CVektor v_start,CVektor v, bool VektorDifferenz, c
 	MatStapel.neu(MatTrans(v_start.x,v_start.y,v_start.z));
 
 	if(v.z!=0 || v.y!=0)
-		MatStapel.hinzu(MatRot(CVektor(0,-v.z,v.y),acos(v.x/x)/PI*180)); //Raum auf x-Achse drehen
+		MatStapel.hinzu(MatRot(CVektor(0,-v.z,v.y),acos(v.x/x)/PI*180)); //Raum auf x-Achse drehen (Drehung um v Vektorprodukt mit e_x)
 	else
 		if(v.x<0)
 			MatStapel.hinzu(MatSkal(-1,1,1));

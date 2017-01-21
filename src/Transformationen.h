@@ -1,5 +1,5 @@
 //################################
-//Transformationen.h (letzte Änderung: 01.05.04 19:54)
+//Transformationen.h (letzte Änderung: 04.08.06 00:03)
 //################################
 /*
 Diese Datei enthält 
@@ -25,4 +25,8 @@ CMat MatRot_Y(double a);
 CMat MatRot(CVektor start, CVektor achse, double a);
 CMat MatRot(CVektor achse, double a);
 
+//Anti-symmetrischer Tensor dritter Stufe
+CMat MatKreuz(CVektor v);
+
+//Projektion
 CMat MatProjektion(float Oeffnungswinkel);

@@ -9,7 +9,7 @@
 #	7			1920	/	1440
 #	8			2048	/	1536
 #	9			1280	/	800
-aufloesung=1
+aufloesung=9
 
 #soll nach FullScreen Modus gefragt werden?
 #nachFullScreenFragen

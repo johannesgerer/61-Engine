@@ -12,9 +12,8 @@ public:
 	CVektor vDrehimpuls;
 	CVektor vKraft;
 	CVektor vMoment;
-	CVektor winkelge;
+	CVektor vWinkelG;
 
-	CVektor F;
 	CMat Traegheitstensor;
 
 	double E_kin_0,Masse,E_pot_0,c;
@@ -27,8 +26,8 @@ public:
 	void Zeichnen(bool Vektoren);
 
 	void PhysikAktualisieren(double sekunden);
-	void hinzu(CVektor F, CVektor r,bool ObjektKoordinaten=1);
-	void paar(CVektor F, CVektor r,bool ObjektKoordinaten=1);
+	void hinzu(CVektor F, CVektor r,bool ObjektKoordinaten=1); //Eine Kraft an einem best. Punkt angreifen lassen
+	void paar(CVektor F, CVektor r,bool ObjektKoordinaten=1);  //Kräftepaar angreifen lassen
 	double InitEnergie();
 
 	double E_kin();double E_pot();

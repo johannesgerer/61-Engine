@@ -34,12 +34,12 @@ CKamera					g_Kamera1(	CVektor(0	,0	,1)	,		//Oben
 									1, 90, 1,1);		//Zu anfangs aktive Kamera
 
 CKamera					g_Kamera2(	CVektor(0	,1	,0)	,			//Oben
-									CVektor(0	,0	,300	,1) ,	//Position
+									CVektor(0	,0	,30	,1) ,	//Position
 									CVektor(0	,0	,0	,1),		//Ziel	
 									0,	45,	1, 1,1	);	
 
 CKamera					g_Kamera3(	CVektor(0	,0	,1)	,			//Oben
-									CVektor(-140	,-88	,83	,1) ,	//Position
+									CVektor(-14.0	,-8.8	,8.3	,1)*2 ,	//Position
 									CVektor(0,0	,0	,1),		//Ziel	
 									 0,	45,	1,1,0	);	
 
@@ -60,18 +60,16 @@ CFarben				Farben;
 CSchrift	g_Schrift; 
 
 //ein paar Variablen, die von mehreren Funktionen genutzt werden
-double ZeitSchritt;
-double speed=24*3600;
+double ZeitSchritt;double LaufZeit;
+double speed=1;
 DWORD start;	
 bool Stopp;
 
 void Tastenbelegung();void Rendern (void);double FPS();void ToggleEgo();void ToggleProjOpenGL();
 
 //#########  START: Szene  #############
-
-double rErde=6.368e6*LE, mErde=5.977e24, UmlaufDauerErde=3.156e7, mMond=mErde*1.23e-2;
-
-CSteuerbar Erde1		(CVektor(0,0,2,1), 13, mErde,5e22,"Erde");
+CSteuerbar Erde1		(CVektor(0,0,2,1), 31  , 6,1,"Erde");
+CObjekt R3 (CVektor(0,0,2,1),0,"");
 
 
 void SzeneInitialisieren()
@@ -82,16 +80,14 @@ void SzeneInitialisieren()
 
 //Simulation am Anfang noch stoppen
 	Stopp=true;
-	speed=24*3600;;
+	speed=1;
 
 //Zu Zeichnende Objekte für die Objekte der Szene festlegen
-	Erde1.Kugel				(20,10,rErde*10);
-	
+	Erde1.Quader(0.1,7,10);
+	R3.R3(5);
+
 //Start-Geschwindigkeiten festlegen
-	Erde1.vGeschwindikkeit=CVektor(-10e-4,0,0);
-
-	Erde1.vKraft.x=+1e17*0;
-
+	Erde1.vGeschwindikkeit=CVektor(0,0,0);
 
 //Position der Kamera 1 auf den Satellit setzen
 	g_Kamera1.PositionsObjektSetzen(&Erde1,CVektor(-0.5,0.5,3,1));
@@ -121,8 +117,41 @@ void SzeneInitialisieren()
 //Gemischte Handlungen, die bei jedem Frame getätigt werden
 void Gemischt()
 {
-	VektorZeichnen(48,CVektor(0,0,0),CVektor(-50,-0,-0),0,"test");
+	
+	CVektor K(1,5,0);
+	CVektor r(9,2,6);
 
+	Erde1.Traegheitstensor.Schreiben(0,9);
+
+	Erde1.vWinkelG.Schreiben(0,6);
+	Erde1.vDrehimpuls.Schreiben(0,7);
+
+	if(Erde1.E_kin_0==0)
+		Erde1.E_kin_0=Erde1.vDrehimpuls*(Erde1.Orientierung*!Erde1.Traegheitstensor*!Erde1.Orientierung*Erde1.vDrehimpuls)/2;
+
+	g_Schrift.Zeile(0,16,0,"E_Rot: %.5f",Erde1.vDrehimpuls*Erde1.vWinkelG/2/Erde1.E_kin_0);
+	
+	Erde1.vDrehimpuls=CVektor(1,1,1,0);
+	
+	R3.Orientierung=Erde1.Orientierung;
+
+	//Erde1.paar(K,r,0);
+
+	
+		//VektorZeichnen(2,r,K,0,"K");	
+		
+	//VektorZeichnen(19,Erde1.vPosition,r,1,"r");
+
+	MatStapel.neu(MatTrans(Erde1.vPosition));
+
+	//	VektorZeichnen(15,CVektor(),~Erde1.vMoment*6,0,"M");
+		VektorZeichnen(3,CVektor(),Erde1.vDrehimpuls,0,"L");
+		VektorZeichnen(1,CVektor(),Erde1.vWinkelG*5,0,"W");
+		
+		MatStapel.zurueck();
+
+
+	
 }
 
 //Es kann überprüft werden, ob eine Taste gedrückt wurde ("Ereignis") oder ob sie gehalten wird ("Unten")
@@ -190,16 +219,16 @@ void TextInformationen()
 {
 	
 	g_Schrift.Zeile(1,1,0,"FPS:   %.1f",FPS());
-	g_Schrift.Zeile(1,2,0,"Zeit:   %.1f",float(GetTickCount()-start)/1000);
+	g_Schrift.Zeile(1,2,0,"Zeit:   %.1f",LaufZeit);
 
 	g_Schrift.Zeile(1,4,0,"Kamera:  %d",Szene.aktive_Kamera+1);
 	g_Schrift.Zeile(1,5,0,"FOV:   %.1f",(Szene.aktiveKamera())->Oeffnungswinkel);
 	g_Schrift.Zeile(1,6,0,"Geschwindigkeit:");
-	(Erde1.vGeschwindikkeit*1e6).Schreiben(1,7);
+	(Erde1.vGeschwindikkeit).Schreiben(1,7);
 	g_Schrift.Zeile(1,8,0,"Kraft:");
 	(Erde1.Kraft).Schreiben(1,9);
 
-	g_Schrift.Zeile(1,11,0,"Speed %.2f T/s",speed/24/3600);
+	g_Schrift.Zeile(1,11,0,"Speed %.2f 1/s",speed);
 
 	if(Stopp)
 		g_Schrift.Zeile(1,12,0,"Stopp");
@@ -227,6 +256,8 @@ void Update ()
 		ZeitSchritt=0;
 	nichterstesframe=true;	
 
+	
+
 //2. Tasten überprüfen
 	Tastenbelegung();
 
@@ -234,7 +265,10 @@ void Update ()
 	if(Stopp)
 		Szene.PhysikAktualisieren(0);
 	else
+	{
+		LaufZeit+=ZeitSchritt*speed;
 		Szene.PhysikAktualisieren(ZeitSchritt*speed);
+	}
 
 //4. Die Scene und Depth Buffer entleeren
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

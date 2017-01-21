@@ -19,9 +19,7 @@ double Cosinus(double x);
 #include "Matrix.h"
 #include "Determinanten.h"
 
-const double LE_potenz=7;
-const double LE=hoch(10,-LE_potenz);
 
-const double G=6.673e-11*hoch(LE,3);
+const double G=6.673e-11;
 
 #endif

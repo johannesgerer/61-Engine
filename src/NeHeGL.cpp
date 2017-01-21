@@ -134,12 +134,18 @@ BOOL CreateWindowGL ()									// This Code Creates Our OpenGL Window
 		AdjustWindowRectEx (&windowRect, windowStyle, 0, windowExtendedStyle);
 	}
 
+	float posx=0,posy=0;
+	if(!Anwendung.FullScreen)
+	{
+		posx=80,posy=20;
+	}
+
 	// Create The OpenGL Window
 	Anwendung.window.hWnd = CreateWindowEx (windowExtendedStyle,					// Extended Style
 								   Anwendung.window.application->className,	// Class Name
 								   Anwendung.title,					// Window Title
 								   windowStyle,							// Window Style
-								   0, 0,								// Window X,Y Position
+								   posx, posy,								// Window X,Y Position  //Johannes
 								   windowRect.right - windowRect.left,	// Window Width
 								   windowRect.bottom - windowRect.top,	// Window Height
 								   HWND_DESKTOP,						// Desktop Is Window's Parent
