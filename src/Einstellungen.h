@@ -1,5 +1,5 @@
 //################################
-//Einstellungen.h (letzte Änderung (nicht Daten): 15.10.03 16:35)
+//Einstellungen.h (letzte Änderung (nicht Daten): 10.02.04 00:26)
 //################################
 /*
 In der Funktion "Einstellungen" kann man die Einstellungen bezüglich des Darstellung festlegen.
@@ -20,8 +20,9 @@ void Einstellungen(GL_WindowInit *einstellung)
 	aufloesungen[3][0]=1024;	aufloesungen[3][1]=768;
 	aufloesungen[4][0]=1280;	aufloesungen[4][1]=1024;
 	aufloesungen[5][0]=1600;	aufloesungen[5][1]=1200;
+	aufloesungen[6][0]=2048;	aufloesungen[6][1]=1536;
 
-	einstellung->resolution			= 3;
+	einstellung->resolution			= 5;
 	einstellung->FullScreenQuestion	= 0;	//Soll nach Vollbildmodus gefragt werden?
 	einstellung->isFullScreen		= 1;
 	einstellung->title				= "Johannes' OpenGL Framwork";

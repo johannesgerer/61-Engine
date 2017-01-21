@@ -11,7 +11,7 @@ class CBauen
 {
 public:
 	CBauen(){};
-	void Los(){DrawMine(CVektor(0,4,0));Draw3DSGrid();};
+	void Los(){Draw3DSGrid();};
 
 //private:
 	float m_angle;
@@ -20,10 +20,27 @@ public:
 	void Draw3DSGrid();
 	void CreatePyramid(float x, float y, float z, int width, int height);
 	void DrawSpiral();
-	void Flaechen(CVektor &p);
+	void Flaechen(CVektor p);
 	void Kugeln(float o, float h, float l,CVektor kreuz, float x);
-
+	void Dreieck(CVektor* a, CVektor* b, CVektor* c,float* farbe=Glas);
+	void KugelZeichnen(float r, CVektor *p, float* farbe,int s1, int s2);
+	void CBauen::KreisZeichnen(float r, CVektor *p, CVektor *n, float* farbe,int s);
 };
+
+void CBauen::Dreieck(CVektor* a, CVektor* b, CVektor* c,float* farbe)
+{
+//	CVektor n=(*a-*c)^(*a-*b);
+	g_Schrift.Schreiben(Weiss,*a,"A");
+	g_Schrift.Schreiben(Weiss,*b,"B");
+	g_Schrift.Schreiben(Weiss,*c,"C");
+
+	glBegin(GL_TRIANGLES);	
+		//glNormal3fv(n.GLausgabe(5));
+		glColor4fv(farbe);  glVertex3fv(a->GLausgabe());
+		glColor4fv(farbe);	glVertex3fv(b->GLausgabe());
+		glColor4fv(farbe);	glVertex3fv(c->GLausgabe());
+	glEnd();
+}
 
 void CBauen::Kugeln(float o, float h, float l, CVektor kreuz, float x)
 {
@@ -47,18 +64,77 @@ void CBauen::Kugeln(float o, float h, float l, CVektor kreuz, float x)
 	gluDeleteQuadric(pSphere);
 }
 
-void CBauen::Flaechen(CVektor &p)
+void CBauen::KugelZeichnen(float r, CVektor *p, float* farbe,int s1, int s2)
 {
-
-GLUquadricObj *pSphere = gluNewQuadric();
+	GLUquadricObj *pSphere = gluNewQuadric();
 	glPushMatrix();
-	glTranslatef(p.x,p.y,p.z);
-	glColor4fv(Gelb);
-	gluSphere(pSphere, 0.2, 10, 10);
+	glTranslatef(p->x,p->y,p->z);
+	glColor4fv(farbe);
+	gluSphere(pSphere, r, s1, s2);
 	glPopMatrix();
 	gluDeleteQuadric(pSphere);
-	
-	
+}
+void KreisPunkt(float x0,float y0,float x1,float y1)
+{
+glVertex3f(x0,	y0,	0);
+glVertex3f(x1,	y1,	0);
+
+glVertex3f(-x0,	y0,	0);
+glVertex3f(-x1,	y1,	0);
+
+glVertex3f(x0,	-y0,	0);
+glVertex3f(x1,	-y1,	0);
+
+glVertex3f(-x0,	-y0,	0);
+glVertex3f(-x1,	-y1,	0);
+
+glVertex3f(y0,	x0,	0);
+glVertex3f(y1,	x1,	0);
+
+glVertex3f(-y0,	x0,	0);
+glVertex3f(-y1,	x1,	0);
+
+glVertex3f(y0,	-x0,	0);
+glVertex3f(y1,	-x1,	0);
+
+glVertex3f(-y0,	-x0,	0);
+glVertex3f(-y1,	-x1,	0);
+}
+void CBauen::KreisZeichnen(float r, CVektor *p, CVektor *n, float* farbe,int s)
+{
+	CVektor ro=~(*n^CVektor(0,0,1))*5;		//Vektor um den Rotiert werden soll Normale x Z-Achse
+
+	glPushMatrix();
+	glTranslatef(p->x,p->y,p->z);			//Mittelpunkt im Raum versetzen	
+	glRotatef(								//Rotieren um Vektor ro
+			180-acosf((*n*CVektor(0,0,1))/!(*n))*180/PI,ro.x,ro.y,ro.z);
+
+	glColor4fv(farbe);
+	glBegin(GL_LINES);
+
+	float x2=cosf(PI*0/(4*s))*r;
+	float y2=sinf(PI*0/(4*s))*r;
+	float x1=x2;
+	float y1=y2;
+
+	for(int i=1; i<=s;i++)
+	{
+		x2=cosf(PI*i/(4*s))*r;
+		y2=sinf(PI*i/(4*s))*r;
+		KreisPunkt(x1,y1,x2,y2);
+		x1=x2;
+		y1=y2;
+	}
+	glEnd();
+
+	glPopMatrix();
+}
+
+void CBauen::Flaechen(CVektor p)
+{
+	KugelZeichnen(0.2,&p,Gelb,10,10);
+
+	glColor4f(1,1,1,0.5f);
 glBegin(GL_QUADS);
 glNormal3f( 0.0f, 1.0f, 0.0f);
 glColor4fv(WeinRot); glVertex3f(50,-0.1f, -50);
@@ -128,7 +204,7 @@ void CBauen::Draw3DSGrid()
 {
 	// Turn the lines GREEN
 	glColor3fv(Gruen);
-
+	glNormal3f( 0.0f, 1.0f, 0.0f);
 	// Draw a 1x1 grid along the X and Z axis'
 	for(float i = -50; i <= 50; i += 1)
 	{

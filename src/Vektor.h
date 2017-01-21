@@ -1,5 +1,5 @@
 //################################
-//Vektor.h (letzte Änderung: 26.10.03 20:48)
+//Vektor.h (letzte Änderung: 24.03.04 21:18)
 //################################
 /*
 Diese Datei enthält
@@ -19,6 +19,11 @@ a) Klasse CVektor.
 	+Einheitsvektor			(~Vektor			 = Vektor)
 
 b) VektorZeichnen(farbe, v_start, v)
+
+c) Rotation(float winkel, CVektor achse, CVektor a, CVektor p)  
+	Rotiert einen Punkt um eine Achse (gegeben durch die Richtung und ihren Startpunkt)
+
+d) det(v1, v2, v3) //Gibt die Determinante der 3x3 Matrix
 ---------------------------------------------
 */
 
@@ -39,6 +44,10 @@ public:
 	CVektor (float ix, float iy, float iz)	//Konstruktor mit direkter Dateneingabe
 	{x=ix;y=iy;z=iz;};
 
+//Member-Funktionen:
+	float* GLausgabe() ;
+	float* GLausgabe(float faktor) ;	
+
 //Operatoren:
 	void operator +=(CVektor& u);	//Addition
 	void operator -=(CVektor& u);	//Subtraktion
@@ -46,6 +55,18 @@ public:
 	void operator /=(float &s);		//Skalardivision
 	void operator ^=(CVektor &u);	//Vektorprodukt
 };
+
+float* CVektor::GLausgabe(float faktor) //Gibt ein (GL)float* auf ein Array mit den 3 Kooridnaten für
+							//Befehle wie glVertex3fv, glNormal3fv
+{
+	float a[]={x*faktor,y*faktor,z*faktor};
+	return a;
+}
+float* CVektor::GLausgabe() //Gibt ein (GL)float* auf ein Array mit den 3 Kooridnaten für
+							//Befehle wie glVertex3fv, glNormal3fv
+{
+	return GLausgabe(1);
+}
 
 CVektor	operator +(CVektor& v,CVektor& u)	//Addition
 {
@@ -227,4 +248,39 @@ void VektorZeichnen(float *farbe,CVektor v_start,CVektor v, bool VektorDifferenz
 	}
 
 return;
+}
+CVektor Rotation(float winkel, CVektor achse, CVektor Achenstartpunkt, CVektor Punkt)
+//Rotiert einen Punkt um eine Achse (gegeben durch die Richtung und ihren Startpunkt)
+{
+	achse=~achse; 
+	float x=achse.x;
+	float y=achse.y;
+	float z=achse.z;
+
+	Punkt -= Achenstartpunkt;
+
+	CVektor neu;
+
+	float Cos=cosf(winkel);
+	float Sin=sinf(winkel);
+
+	//Siehe http://www.3dsource.de/deutsch/mathe.htm Gleichung 20
+	neu.x=	(x*x	*	(1	-	Cos)	+	1	*	Cos)	*	Punkt.x	+
+			(x*y	*	(1	-	Cos)	-	z	*	Sin)	*	Punkt.y +
+			(x*z	*	(1	-	Cos)	+	y	*	Sin)	*	Punkt.z ;
+
+	neu.y=	(x*y	*	(1	-	Cos)	+	z	*	Sin)	*	Punkt.x	+
+			(y*y	*	(1	-	Cos)	+	1	*	Cos)	*	Punkt.y +
+			(y*z	*	(1	-	Cos)	-	x	*	Sin)	*	Punkt.z ;
+
+	neu.z=	(x*z	*	(1	-	Cos)	-	y	*	Sin)	*	Punkt.x	+
+			(z*y	*	(1	-	Cos)	+	x	*	Sin)	*	Punkt.y +
+			(z*z	*	(1	-	Cos)	+	1	*	Cos)	*	Punkt.z ;
+
+    return neu+Achenstartpunkt;
+}
+
+float det(CVektor v1,CVektor v2,CVektor v3)
+{
+	return (v1^v2)*v3;
 }

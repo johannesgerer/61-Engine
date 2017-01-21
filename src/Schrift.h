@@ -226,7 +226,7 @@ void CSchrift::Erstellen(int Hoehe, int Breite, int Staerke, bool kursiv, bool u
 {
 	HFONT	font;										// Windows Font ID
 	HFONT	oldfont;									// Used For Good House Keeping
-	ZeichenBasis = glGenLists(96);								// Storage For 96 Characters
+	ZeichenBasis = glGenLists(240);								// Storage For 96 Characters
 	font = CreateFont(	Hoehe,							// Height Of Font
 						0,								// Width Of Font
 						0,								// Angle Of Escapement

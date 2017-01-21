@@ -19,6 +19,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				InlineFunctionExpansion="0"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -62,7 +63,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				InlineFunctionExpansion="2"
+				InlineFunctionExpansion="0"
 				OmitFramePointers="TRUE"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				StringPooling="TRUE"
@@ -122,6 +123,9 @@
 			</File>
 			<File
 				RelativePath="Kamera.h">
+			</File>
+			<File
+				RelativePath="LGS.h">
 			</File>
 			<File
 				RelativePath="Licht.h">

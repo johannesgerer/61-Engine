@@ -13,5 +13,12 @@ if(x<0)
 return y;
 }
 
+float betrag(float x)
+{
+	if(x<0)
+		x=-x;
+	return x;
+}
+		
 
 #include <math.h>

@@ -39,7 +39,7 @@ public:
 		m_pDirekt[3]	=	1.0f;
 		m_pDirekt[4]	=	1;
 
-		m_vPosition = CVektor( 5, 3, 5);
+		m_vPosition = CVektor( -5, 3, -5);
 	}
 
 //Memberfunktion
