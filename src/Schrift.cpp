@@ -120,6 +120,8 @@ void CSchrift::Schreiben(int farbe, CVektor pos, const char *fmt, ...)
 
 void CSchrift::Ausgeben3D(int farbe, CVektor pos, char* text)
 {		
+	pos.w=1;
+
 	glDisable(GL_LIGHTING);
 	double off=1;
 

@@ -60,7 +60,7 @@ CMat CMatrizenStapel::Szene()
 
 CVektor CMatrizenStapel::Projektion(CVektor v)
 {
-	return *mProjektionp*Ansicht(v);
+	return Szene()*v;
 }
 
 CVektor CMatrizenStapel::Ansicht(CVektor v)

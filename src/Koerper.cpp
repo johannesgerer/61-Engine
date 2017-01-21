@@ -32,13 +32,13 @@ for(int i=0;i<m_Szene->Anzahl_Koerper;i++)//Gravitationskräfte zwischem aktuelle
 	return E/2;
 }
 
-CKoerper::CKoerper(CVektor p, int i_farbe,double i_Masse, char* itext, bool i_Physik, bool i_VektorenAnzeigen, bool i_sichtbar, bool i_licht)
+CKoerper::CKoerper( CVektor p, int i_farbe,double i_Masse,double i_c, char* itext, bool i_Physik, bool i_VektorenAnzeigen, bool i_sichtbar, bool i_licht)
 :CObjekt(p,i_farbe,itext,0)
 {
 	VektorenAnzeigen=i_VektorenAnzeigen;
 	m_Szene->Hinzu(this);
 	Physik=i_Physik;
-	Orientierung=MatRot_Y(360);
+	Orientierung=MatRot_Y(0);
 	Masse=i_Masse;
 	vKraft=CVektor(0,0);
 	vMoment=vKraft;
@@ -48,6 +48,7 @@ CKoerper::CKoerper(CVektor p, int i_farbe,double i_Masse, char* itext, bool i_Ph
 	vGeschwindikkeit=vKraft;
 	vDrehimpuls=vKraft;
 	winkelge=Kraft;
+	c=i_c;
 }
 
 void CKoerper::Zeichnen(bool Vektoren)
@@ -56,7 +57,7 @@ void CKoerper::Zeichnen(bool Vektoren)
 	
 	if(VektorenAnzeigen || Vektoren)
 	{
-		VektorZeichnen(10,vPosition,Kraft/sqrt(!Kraft)*LE*1.5e1,0,"F");
+		VektorZeichnen(10,vPosition,~Kraft*5,0,"F");
 		VektorZeichnen(11,vPosition,vGeschwindikkeit*10e4,0,"v");
 	}
 }
@@ -74,6 +75,7 @@ void CKoerper::hinzu(CVektor F, CVektor r, bool ObjektKoordinaten)
 	vKraft+=F;
 
 }
+
 
 //Kräftepaar
 void CKoerper::paar(CVektor F, CVektor r, bool ObjektKoordinaten)
@@ -94,6 +96,7 @@ void CKoerper::PhysikAktualisieren(double sekunden)
 double F_neu;
 
 for(int i=0;i<m_Szene->Anzahl_Koerper;i++)//Gravitationskräfte zwischem aktuellem und allen anderen Körpern
+
 	if(this!=m_Szene->m_Koerper[i])
 		if(m_Szene->m_Koerper[i]->Masse!=0 && m_Szene->m_Koerper[i]->Physik)
 		{
@@ -101,60 +104,111 @@ for(int i=0;i<m_Szene->Anzahl_Koerper;i++)//Gravitationskräfte zwischem aktuelle
 			//if(!r>0.001f)
 			F_neu=G*m_Szene->m_Koerper[i]->Masse*Masse/hoch(!r,3);
 
-			vKraft+=r*F_neu;
+			F+=r*F_neu;
 		}
 
-		//if(sekunden!=0)
-		//	vKraft*=1+(F_neu-F)/sekunden/!vKraft;
+	vKraft+=F;
 
-		
-		vGeschwindikkeit+=(vKraft+Kraft)/Masse/2*sekunden;
-		vPosition+=vKraft/Masse*sekunden*sekunden*0.5+vGeschwindikkeit*sekunden;
-
-//		Orientierung*=MatRot(winkelge,!winkelge*sekunden);
-	
-	
-	//vGeschwindikkeit+=vKraft/Masse*sekunden;	
-
-	//if(!vDrehimpuls!=0)
+	if(c==0)
 	{
-	//winkelge=Orientierung*Traegheitstensor*(!Orientierung)*vDrehimpuls;
+		vGeschwindikkeit+=(vKraft+Kraft)/Masse/2*sekunden;
+		vPosition+= (Kraft/3 + (vKraft)/6)*sekunden*sekunden/Masse+ vGeschwindikkeit * sekunden;
+	}else{
+		
+		double sr_c = sqrt(c);
 
-	//Orientierung*=MatRot(winkelge,(!winkelge)*sekunden*180/PI);
+		for(int i=0;i<3;i++)
+		{ 
+			if(vKraft(i)==0)
+			{
+				vPosition.Koordinate(i,sgn(vGeschwindikkeit(i))*log(betrag(vGeschwindikkeit(i)) * sekunden * c/Masse + 1)*Masse / c+vPosition(i));
+				vGeschwindikkeit.Koordinate(i, 1 / (sgn(vGeschwindikkeit(i))*c * sekunden /Masse+1/vGeschwindikkeit(i)));
+
+			}else{
+				
+				double sr_vKraft=sqrt(betrag(vKraft(i)));
+
+				if(sgn(vKraft(i))==sgn(vGeschwindikkeit(i)) || vGeschwindikkeit(i)==0)
+				{
+					double t7 = Masse / c;
+					double t10 = betrag(vGeschwindikkeit(i)) * sr_c;
+					double t17 = exp(2 * sekunden * sr_c * sr_vKraft / Masse);
+					double t20 = log(((t17 * (sr_vKraft + t10) - t10)/sr_vKraft+1)/2);
+					double t25 = -sekunden * sr_vKraft / sr_c + t20 * t7;
+
+					vPosition.Koordinate(i,sgn(vGeschwindikkeit(i))*t25+vPosition(i));
+					
+					sr_vKraft=sgn(vKraft(i))*sr_vKraft;
+
+					double t5 = vGeschwindikkeit(i) * sr_c;
+					double t6 = sr_vKraft + t5;
+					double t13 = exp(sgn(vKraft(i))*2 * sekunden * sr_c * sr_vKraft / Masse);
+					double t24 = 1 / c * (-2 * sr_c * sr_vKraft + 4 / ( t6 + (sr_vKraft - t5)/t13)  * sr_c * sr_vKraft * t6) / 2;
+
+					vGeschwindikkeit.Koordinate(i, t24);
+
+				}else{
+								
+					double t11 = sekunden * sr_c * sr_vKraft / Masse;
+					double t12 = sin(t11);
+					double t15 = cos(t11);
+					double t20 = log(sr_c*betrag(vGeschwindikkeit(i))*t12/sr_vKraft + t15)*Masse/c;
+
+					vPosition.Koordinate(i,sgn(vGeschwindikkeit(i))*t20+vPosition(i));
+
+					sr_vKraft=sgn(vKraft(i))*sr_vKraft;
+
+					double t6 = sekunden*sr_c *sr_vKraft/Masse;  
+					double t7 = sin(t6);
+					double t10 = cos(t6);
+					double t21 = sgn(vGeschwindikkeit(i))*(sr_vKraft*t10*betrag(vGeschwindikkeit(i)) - t7 * betrag(vKraft(i)) / sr_c)/(sr_c * t7*betrag(vGeschwindikkeit(i)) + t10 * sr_vKraft);
+					
+					vGeschwindikkeit.Koordinate(i, t21);
+				}
+			}
+
+		}
 	}
 
-	//vDrehimpuls+=vMoment*sekunden;
+	if(Bremse)
+		if(vGeschwindikkeit*Geschwindikkeit<=0)
+			vGeschwindikkeit*=0;
 
 	Geschwindikkeit=vGeschwindikkeit;
 	Kraft=vKraft;
-	Moment=vMoment;
-
-	vKraft=CVektor(0,0);
-	vMoment=vKraft;
+	vKraft-=F;
+	
 }
 
-void CSteuerbar::links()
-{
+void CSteuerbar::links(bool an)
+{ 
+	if(!an)
+		return; 
+
 	this->paar(CVektor(10,0,0,0),CVektor(0,0.835f*breite,0));
 }
 
-void CSteuerbar::rechts()
+void CSteuerbar::rechts(bool an)
 {
+	if(!an)
+		return; 
+
 	this->paar(CVektor(-10,0,0,0),CVektor(0,0.835f*breite,0));
 }
-void CSteuerbar::gerade()
+void CSteuerbar::gerade(bool an)
 {
-	this->hinzu(CVektor(300,0,0),CVektor());
+	if(an)
+		this->hinzu(CVektor(1e17,0,0),CVektor()); 
 }
-void CSteuerbar::bremse()
-{
-	if(!vDrehimpuls<1)
-		vDrehimpuls=CVektor(0,0);
-	else
-		vDrehimpuls*=1-0.05f;
 
-	if(!vGeschwindikkeit<1)
-		vGeschwindikkeit=CVektor(0,0);
-	else
-		this->hinzu(~vGeschwindikkeit*(-50),vPosition,0);
+void CSteuerbar::bremse(bool an)
+{
+	Bremse=an;
+
+	if(an)
+	{
+		this->hinzu(~vGeschwindikkeit*(-5e16),CVektor()); 
+		c=5e23;
+	}else
+		c=5e22;
 }

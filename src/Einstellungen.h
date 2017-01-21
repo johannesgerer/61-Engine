@@ -23,7 +23,7 @@ char* Einstellungen()
 	fclose(fp);
 
 //####### Auflösung ######
-	int aufloesungen[10][2];
+	int aufloesungen[11][2];
 	aufloesungen[1][0]=640;		aufloesungen[1][1]=480;
 	aufloesungen[2][0]=800;		aufloesungen[2][1]=600;
 	aufloesungen[3][0]=1024;	aufloesungen[3][1]=768;
@@ -33,8 +33,9 @@ char* Einstellungen()
 	aufloesungen[7][0]=1792;	aufloesungen[7][1]=1344;
 	aufloesungen[8][0]=1920;	aufloesungen[8][1]=1440;
 	aufloesungen[9][0]=2048;	aufloesungen[9][1]=1536;
+	aufloesungen[10][0]=1280;	aufloesungen[10][1]=800;
 	int aufloesung					= atoi(find_value(parms,"aufloesung"))+1;
-	if(aufloesung<1 || aufloesung>9)
+	if(aufloesung<1 || aufloesung>10)
 		return "Fehler in config.txt bei \"aufloesung\"";
 
 	Anwendung.viewport.breite 				= aufloesungen[aufloesung][0];									

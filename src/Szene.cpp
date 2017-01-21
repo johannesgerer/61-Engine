@@ -14,14 +14,11 @@ extern CMatrizenStapel	MatStapel;
 extern Viewport*		viewport;
 extern CSchrift			g_Schrift;
 
-void CSzene::PhysikAktualisieren(double sekunden)
+void CSzene::Schwerpunktsberechnungen()
 {
 	Schwerpunkt.vGeschwindikkeit=CVektor(0,0);
 	Schwerpunkt.vPosition=CVektor();
 	Schwerpunkt.Masse=0;
-
-	for(int i=0;i<Anzahl_Koerper;i++)
-		m_Koerper[i]->PhysikAktualisieren(sekunden);
 
 	for(int i=0;i<Anzahl_Koerper;i++)
 		if(m_Koerper[i]->Physik)
@@ -36,13 +33,30 @@ void CSzene::PhysikAktualisieren(double sekunden)
 
 	Schwerpunkt.vGeschwindikkeit/=Schwerpunkt.Masse;
 
-	for(int i=0;i<Anzahl_Koerper;i++)
-		if(m_Koerper[i]->Physik)
+	if(Schwerpunkt_in_Ruhe)
+	{
+		for(int i=0;i<Anzahl_Koerper;i++)
+			if(m_Koerper[i]->Physik)
 			m_Koerper[i]->vGeschwindikkeit-=Schwerpunkt.vGeschwindikkeit;
 
-	Schwerpunkt.vGeschwindikkeit=CVektor(0,0);
-	
+		Schwerpunkt.vGeschwindikkeit=CVektor(0,0);
+	}
+}
 
+void CSzene::PhysikAktualisieren(double sekunden)
+{
+	Schwerpunktsberechnungen();
+
+	int Balken=1;
+	double sl=sekunden/Balken;
+		for(int j=0;j<Balken;j++)
+			for(int i=0;i<Anzahl_Koerper;i++)
+				m_Koerper[i]->PhysikAktualisieren(sl);
+
+	for(int i=0;i<Anzahl_Koerper;i++)
+		m_Koerper[i]->vKraft=CVektor();
+
+	Schwerpunktsberechnungen();
 }
 
 void CSzene::EnergieAusgeben()
@@ -90,8 +104,11 @@ void CSzene::Zeichnen()
 		MatStapel.Punkt(a, i, k);	
 		MatStapel.Punkt(i, -a, k);
 		MatStapel.Punkt(i, a, k);
+		
 	}glEnd();
 	MatStapel.zurueck();
+
+	
 	}
 //	ENDE ########  Gitter  ##########
 
@@ -102,8 +119,9 @@ void CSzene::Zeichnen()
 		m_Koerper[i]->Zeichnen(VektorenAnzeigen);
 }
 
-CSzene::CSzene(int i_farbe)
+CSzene::CSzene(int i_farbe,bool i_Schwerpunkt_in_Ruhe)
 {
+	Schwerpunkt_in_Ruhe=i_Schwerpunkt_in_Ruhe;
 	farbe=i_farbe;
 	Schwerpunkt.text="Schwerpunkt";
 }
