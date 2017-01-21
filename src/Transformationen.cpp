@@ -123,10 +123,3 @@ CMat MatRot(CVektor achse, double a)
 	
 		return MatRot(CVektor(), achse,  a);
 }
-
-CMat MatKreuz(CVektor v)
-{
-	return CMat(0		,	-v.z	,	v.y		,
-				v.z		,	0		,	-v.x	,
-				-v.y	,	v.x		,	0);	
-}

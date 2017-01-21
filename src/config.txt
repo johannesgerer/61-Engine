@@ -8,18 +8,17 @@
 #	6			1792	/	1344
 #	7			1920	/	1440
 #	8			2048	/	1536
-#	9			1280	/	800
-aufloesung=9
+aufloesung=3
 
-#soll nach FullScreen Modus gefragt werden?
+#soll nach FullScreen Modus gefragt werden? (ja=1; nein=0)
 #nachFullScreenFragen
 
 #soll, wenn nicht nach FullScreen gefragt wird (s.o.), 
-#automatisch in FullScreen Modus gestartet werden? 
+#automatisch in FullScreen Modus gestartet werden? (ja=1; nein=0)
 #Umschalten zur Laufzeit mit F1
 #FullScreen
 
-#Projektion von OpenGL=0 oder vom Programm=1  (keine realistische Licht- und Clippingberechnung!) 
+#Projektion von OpenGL=0 oder vom Programm=1  (keine echte Lichtberechnung bei "Programm"!) 
 #Umschalten zur Laufzeit mit F2
 ProjOpenGL
 
@@ -28,5 +27,5 @@ ProjOpenGL
 #normalen_anzeigen
 
 #bitsProPixel
-bitsProPixel=32
+bitsProPixel=16
 

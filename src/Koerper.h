@@ -12,23 +12,23 @@ public:
 	CVektor vDrehimpuls;
 	CVektor vKraft;
 	CVektor vMoment;
-	CVektor vWinkelG,WinkelG;
+	CVektor winkelge;
 
+	CVektor F;
 	CMat Traegheitstensor;
 
-	int alg;
-	double E_kin_0,Masse,E_pot_0,c;
-	bool Physik, VektorenAnzeigen,Bremse;
+	double E_kin_0,Masse,E_pot_0;
+	bool Physik, VektorenAnzeigen;
 
-	CKoerper():CObjekt(CVektor(),0){vGeschwindikkeit=CVektor(0,0);Physik=0;c=0;};
+	CKoerper():CObjekt(CVektor(),0){vGeschwindikkeit=CVektor(0,0);Physik=0;};
 
-	CKoerper(CVektor p, int i_farbe, double i_Masse,double i_c=0,char* itext=0, bool i_Physik=1, bool i_VektorenAnzeigen=0, bool i_sichtbar=true, bool i_licht=true);
+	CKoerper(CVektor p, int i_farbe, double i_Masse,char* itext=0, bool i_Physik=1, bool i_VektorenAnzeigen=0, bool i_sichtbar=true, bool i_licht=true);
 
 	void Zeichnen(bool Vektoren);
 
-	void PhysikAktualisieren(double sekunden);
-	void hinzu(CVektor F, CVektor r,bool ObjektKoordinaten=1); //Eine Kraft an einem best. Punkt angreifen lassen
-	void paar(CVektor F, CVektor r,bool ObjektKoordinaten=1);  //Kräftepaar angreifen lassen
+	void PhysikAktualisieren(double t);
+	void hinzu(CVektor F, CVektor r,bool ObjektKoordinaten=1);
+	void paar(CVektor F, CVektor r,bool ObjektKoordinaten=1);
 	double InitEnergie();
 
 	double E_kin();double E_pot();
@@ -37,10 +37,10 @@ public:
 class CSteuerbar: public CKoerper
 {
 public:
-	CSteuerbar(CVektor p,int i_farbe, float i_Masse,double i_c=0,char* itext=0, bool i_VektorenAnzeigen=0, bool i_sichtbar=true, bool i_licht=true):CKoerper(p, i_farbe, i_Masse, i_c,itext,1,i_VektorenAnzeigen,i_sichtbar){};
+	CSteuerbar(CVektor p,int i_farbe, float i_Masse):CKoerper(p, i_farbe, i_Masse){};
 
-	void rechts(bool an=0);
-	void links(bool an=0);
-	void gerade(bool an=0);
-	void bremse(bool an);
+	void rechts();
+	void links();
+	void gerade();
+	void bremse();
 };

@@ -47,7 +47,6 @@ public:
 //Member-Funktionen:
 	void Spalte(int i, CVektor s);	//Setzt einen Spaltenvektor
 	void Schreiben(bool rechts, int Zeile, bool w=0);
-	void Orthogonalisierung(bool spalten=1);
 
 	//Operatoren:
 	CVektor operator ()(int i);			//Gibt einen Spaltenvektor zurück

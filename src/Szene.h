@@ -8,14 +8,14 @@ class CSzene
 {
 public:
 //Konstruktoren:
-	CSzene(int i_farbe,bool i_Schwerpunkt_in_Ruhe=0);					//Standardkonstruktor
+	CSzene(int i_farbe);					//Standardkonstruktor
 
 //Membervaiablen:
 	CObjekt *m_Objekt[10];		//Array mit Objekten
 	CKoerper *m_Koerper[10];	//Array mit Koerpern
 	float m_Schwerkraft;		//Schwerkraft in N
 	int farbe;
-	bool VektorenAnzeigen,Schwerpunkt_in_Ruhe;
+	bool VektorenAnzeigen;
 
 	CKoerper Schwerpunkt;
 
@@ -28,8 +28,6 @@ public:
 
 	void PhysikAktualisieren(double sekunden);		//Aktualisiert alle Objekte (Position, Geschwindigkeit,...)
 											//anhand physikalischer Gesetze, sofern das Objekt ein Körper ist
-
-	void Schwerpunktsberechnungen();
 
 	void Hinzu(CKoerper* i_Koerper)
 		{m_Koerper[Anzahl_Koerper++]=i_Koerper;};	

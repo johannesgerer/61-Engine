@@ -1,504 +1,304 @@
-<?xml version="1.0" encoding="Windows-1252"?>
+<?xml version="1.0" encoding = "Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="7.00"
 	Name="CPS"
 	ProjectGUID="{F31DD788-46A2-4AF7-BDB8-4A41D885DDDB}"
-	RootNamespace="CPS"
-	Keyword="Win32Proj"
-	>
+	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
-			Name="Win32"
-		/>
+			Name="Win32"/>
 	</Platforms>
-	<ToolFiles>
-	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="Debug"
 			IntermediateDirectory="Debug"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
-			CharacterSet="2"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
+			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				InlineFunctionExpansion="0"
-				MinimalRebuild="true"
+				PreprocessorDefInitEnergieions="$(NOINHERIT)"
+				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				EnableFunctionLevelLinking="false"
+				RuntimeLibrary="5"
+				EnableFunctionLevelLinking="FALSE"
 				UsePrecompiledHeader="0"
 				ObjectFile="$(IntDir)/"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="4"
-				CompileAs="0"
-			/>
+				CompileAs="0"/>
 			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
+				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="opengl32.lib glu32.lib glaux.lib"
 				OutputFile="$(OutDir)/CPS.exe"
 				LinkIncremental="2"
-				GenerateDebugInformation="true"
+				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/CPS.pdb"
 				SubSystem="2"
-				TargetMachine="1"
-			/>
+				TargetMachine="1"/>
 			<Tool
-				Name="VCALinkTool"
-			/>
+				Name="VCMIDLTool"/>
 			<Tool
-				Name="VCManifestTool"
-			/>
+				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCXDCMakeTool"
-			/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCBscMakeTool"
-			/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCFxCopTool"
-			/>
+				Name="VCResourceCompilerTool"/>
 			<Tool
-				Name="VCAppVerifierTool"
-			/>
+				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
+				Name="VCWebDeploymentTool"/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="Release"
 			IntermediateDirectory="Release"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
-			CharacterSet="2"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
+			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				GlobalOptimizations="FALSE"
 				InlineFunctionExpansion="0"
-				OmitFramePointers="true"
-				StringPooling="true"
-				MinimalRebuild="false"
+				OmitFramePointers="TRUE"
+				PreprocessorDefInitEnergieions="$(NOINHERIT)"
+				StringPooling="TRUE"
+				MinimalRebuild="FALSE"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="0"
-				BufferSecurityCheck="false"
-				EnableFunctionLevelLinking="false"
+				RuntimeLibrary="4"
+				BufferSecurityCheck="FALSE"
+				EnableFunctionLevelLinking="FALSE"
 				UsePrecompiledHeader="0"
 				WarningLevel="1"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="0"
-				CompileAs="0"
-			/>
+				CompileAs="0"/>
 			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
+				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="opengl32.lib glu32.lib glaux.lib"
 				OutputFile="$(OutDir)/CPS.exe"
 				LinkIncremental="1"
-				GenerateDebugInformation="false"
+				GenerateDebugInformation="FALSE"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				TargetMachine="1"
-			/>
+				TargetMachine="1"/>
 			<Tool
-				Name="VCALinkTool"
-			/>
+				Name="VCMIDLTool"/>
 			<Tool
-				Name="VCManifestTool"
-			/>
+				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCXDCMakeTool"
-			/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCBscMakeTool"
-			/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCFxCopTool"
-			/>
+				Name="VCResourceCompilerTool"/>
 			<Tool
-				Name="VCAppVerifierTool"
-			/>
+				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
+				Name="VCWebDeploymentTool"/>
 		</Configuration>
 		<Configuration
 			Name="VektorTest|Win32"
 			IntermediateDirectory="VektorTest"
-			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
-			>
+			ConfigurationType="1">
 			<Tool
-				Name="VCPreBuildEventTool"
-			/>
+				Name="VCCLCompilerTool"/>
 			<Tool
-				Name="VCCustomBuildTool"
-			/>
+				Name="VCCustomBuildTool"/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
+				Name="VCLinkerTool"/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
+				Name="VCMIDLTool"/>
 			<Tool
-				Name="VCMIDLTool"
-			/>
+				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCCLCompilerTool"
-			/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCResourceCompilerTool"
-			/>
+				Name="VCResourceCompilerTool"/>
 			<Tool
-				Name="VCPreLinkEventTool"
-			/>
+				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
-				Name="VCLinkerTool"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
+				Name="VCWebDeploymentTool"/>
 		</Configuration>
 		<Configuration
 			Name="CPS|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="CPS"
-			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
-			>
+			ConfigurationType="1">
 			<Tool
-				Name="VCPreBuildEventTool"
-			/>
+				Name="VCCLCompilerTool"/>
 			<Tool
-				Name="VCCustomBuildTool"
-			/>
+				Name="VCCustomBuildTool"/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
+				Name="VCLinkerTool"/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
+				Name="VCMIDLTool"/>
 			<Tool
-				Name="VCMIDLTool"
-			/>
+				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCCLCompilerTool"
-			/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCResourceCompilerTool"
-			/>
+				Name="VCResourceCompilerTool"/>
 			<Tool
-				Name="VCPreLinkEventTool"
-			/>
+				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
-				Name="VCLinkerTool"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
+				Name="VCWebDeploymentTool"/>
 		</Configuration>
 		<Configuration
 			Name="Makefile|Win32"
 			OutputDirectory="Makefile"
 			IntermediateDirectory="Makefile"
-			ConfigurationType="0"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
-			>
+			ConfigurationType="0">
 			<Tool
-				Name="VCNMakeTool"
-				BuildCommandLine=""
-				ReBuildCommandLine=""
-				CleanCommandLine=""
-				Output=""
-				PreprocessorDefinitions=""
-				IncludeSearchPath=""
-				ForcedIncludes=""
-				AssemblySearchPath=""
-				ForcedUsingAssemblies=""
-				CompileAsManaged=""
-			/>
+				Name="VCNMakeTool"/>
 		</Configuration>
 	</Configurations>
-	<References>
-	</References>
 	<Files>
 		<Filter
 			Name="Mathe"
-			Filter="h;hpp;hxx;hm;inl;inc"
-			>
+			Filter="h;hpp;hxx;hm;inl;inc">
 			<File
-				RelativePath="Determinanten.cpp"
-				>
+				RelativePath="Determinanten.cpp">
 			</File>
 			<File
-				RelativePath="Determinanten.h"
-				>
+				RelativePath="Determinanten.h">
 			</File>
 			<File
-				RelativePath="LGS.h"
-				>
+				RelativePath="LGS.h">
 			</File>
 			<File
-				RelativePath="Mathe.cpp"
-				>
+				RelativePath="Mathe.cpp">
 			</File>
 			<File
-				RelativePath="Mathe.h"
-				>
+				RelativePath="Mathe.h">
 			</File>
 			<File
-				RelativePath="Matrix.cpp"
-				>
+				RelativePath="Matrix.cpp">
 			</File>
 			<File
-				RelativePath="Matrix.h"
-				>
+				RelativePath="Matrix.h">
 			</File>
 			<File
-				RelativePath="Transformationen.cpp"
-				>
+				RelativePath="Transformationen.cpp">
 			</File>
 			<File
-				RelativePath="Transformationen.h"
-				>
+				RelativePath="Transformationen.h">
 			</File>
 			<File
-				RelativePath="Vektor.cpp"
-				>
+				RelativePath="Vektor.cpp">
 			</File>
 			<File
-				RelativePath="Vektor.h"
-				>
+				RelativePath="Vektor.h">
 			</File>
 		</Filter>
 		<Filter
 			Name="Includes"
-			>
+			Filter="">
 			<File
-				RelativePath="Einstellungen.h"
-				>
+				RelativePath="Einstellungen.h">
 			</File>
 			<File
-				RelativePath="GLInclude.h"
-				>
+				RelativePath="GLInclude.h">
 			</File>
 			<File
-				RelativePath="NeHeGL.h"
-				>
+				RelativePath="NeHeGL.h">
 			</File>
 		</Filter>
 		<Filter
 			Name="Fremd"
-			>
+			Filter="">
 			<File
-				RelativePath="cfg.h"
-				>
+				RelativePath="NeHeGL.cpp">
 			</File>
 			<File
-				RelativePath="NeHeGL.cpp"
-				>
+				RelativePath="cfg.h">
 			</File>
 		</Filter>
 		<Filter
 			Name="Objektklassen"
-			>
+			Filter="">
 			<File
-				RelativePath="Koerper.cpp"
-				>
+				RelativePath="Koerper.cpp">
 			</File>
 			<File
-				RelativePath="Koerper.h"
-				>
+				RelativePath="Koerper.h">
 			</File>
 			<File
-				RelativePath="Objekt.cpp"
-				>
+				RelativePath="Objekt.cpp">
 			</File>
 			<File
-				RelativePath="Objekt.h"
-				>
+				RelativePath="Objekt.h">
 			</File>
 			<File
-				RelativePath="Szene.cpp"
-				>
+				RelativePath="Szene.cpp">
 			</File>
 			<File
-				RelativePath="Szene.h"
-				>
+				RelativePath="Szene.h">
 			</File>
 		</Filter>
 		<Filter
 			Name="Funktionelle Klassen"
-			>
+			Filter="">
 			<File
-				RelativePath="Farben.cpp"
-				>
+				RelativePath="Farben.cpp">
 			</File>
 			<File
-				RelativePath="Farben.h"
-				>
+				RelativePath="Farben.h">
 			</File>
 			<File
-				RelativePath="Kamera.cpp"
-				>
+				RelativePath="Kamera.cpp">
 			</File>
 			<File
-				RelativePath="Kamera.h"
-				>
+				RelativePath="Kamera.h">
 			</File>
 			<File
-				RelativePath="Licht.cpp"
-				>
+				RelativePath="Licht.cpp">
 			</File>
 			<File
-				RelativePath="Licht.h"
-				>
+				RelativePath="Licht.h">
 			</File>
 			<File
-				RelativePath="MatrizenStapel.cpp"
-				>
+				RelativePath="MatrizenStapel.cpp">
 			</File>
 			<File
-				RelativePath="MatrizenStapel.h"
-				>
+				RelativePath="MatrizenStapel.h">
 			</File>
 			<File
-				RelativePath="Primitive.cpp"
-				>
+				RelativePath="Primitive.cpp">
 			</File>
 			<File
-				RelativePath="Primitive.h"
-				>
+				RelativePath="Primitive.h">
 			</File>
 			<File
-				RelativePath="Schrift.cpp"
-				>
+				RelativePath="Schrift.cpp">
 			</File>
 			<File
-				RelativePath="Schrift.h"
-				>
+				RelativePath="Schrift.h">
 			</File>
 		</Filter>
 		<File
-			RelativePath="config.txt"
-			>
-		</File>
-		<File
 			RelativePath="Farbtabelle Hexcode.htm"
-			DeploymentContent="true"
-			>
+			DeploymentContent="TRUE">
 		</File>
 		<File
-			RelativePath="Haupt.cpp"
-			>
+			RelativePath="Haupt.cpp">
+		</File>
+		<File
+			RelativePath="config.txt">
 		</File>
 	</Files>
 	<Globals>

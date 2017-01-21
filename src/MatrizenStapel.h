@@ -9,7 +9,7 @@ public:
 
 	//Anzahl:	Gesamtanzahl der Matrizen im Stapel (frei und belegt)
 	//Top:		Index der "Obersten"
-	//Gebraucht:Anzahl der genutzen Matrizen im Stapel
+	//Gebraucht:Anzahl der genutzen Matrizen im Sapel
 	int Anzahl, Top, Gebraucht;
 		
 	//Standardkonstruktor
