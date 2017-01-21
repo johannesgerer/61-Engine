@@ -1,24 +1,27 @@
-#pragma once
+#ifndef Mathe
+#define Mathe
 
-const float PI=3.14159265359F;
+//Einige mathematische Funktionen
 
-//Signum
-float sgn(float x)
-{
-	float y=1;
-
-if(x<0)
-	y=-1;
-
-return y;
-}
-
-float betrag(float x)
-{
-	if(x<0)
-		x=-x;
-	return x;
-}
-		
 
 #include <math.h>
+const double PI=3.14159265359;
+
+double sgn(double x);				//Signum
+double betrag(double x);			//Betrag
+double sq(double x);				//Quadrat
+double hoch(double x,int y);		//x hoch y
+
+double Sinus(double x);
+double Cosinus(double x);
+
+#include "Vektor.h"
+#include "Matrix.h"
+#include "Determinanten.h"
+
+const double LE_potenz=7;
+const double LE=hoch(10,-LE_potenz);
+
+const double G=6.673e-11*hoch(LE,3);
+
+#endif

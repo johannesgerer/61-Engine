@@ -1,55 +1,41 @@
-#include "Vektor.h"
+#pragma once
+#include "NeheGL.h"
+#include "Mathe.h"
+
+class CKamera;
+class CSzene;
+class CObjekt;
 
 class CKamera
 {
-	
-
 public:
 
-	CVektor m_vPosition,m_vZiel,m_vOben;
+	static CSzene* m_Szene;
 
-	CKamera();
-	void Schaue();
-	void vor(float wert){m_vPosition+=~(m_vZiel-m_vPosition)*wert;};
-	void rechts(float wert){m_vPosition.x+=wert;};
-	void MausBewegung(GL_WindowInit* Fenster);
+	bool m_Ego,fest,starr;
+
+	CVektor vPosition, vZiel, vOben, vObjektPosition;
+	CVektor* Ziel;
+    
+	CObjekt* PositionsObjekt;
+
+	int ZielNr;
+
+	CMat Ansicht,Projektion;
+
+	float Oeffnungswinkel;
+
+	void PositionsObjektSetzen(CObjekt* Objekt, CVektor ObjektPosition);
+
+	CKamera(CVektor oben, CVektor Position, CVektor iZiel, bool EGO, 
+		float iOeffnungswinkel=45, bool aktiv=0, bool ifest=0, bool istarr=0);
+	
+	void MausBewegung();
+	void Aktualisieren(bool projektion=0);
+
+	void naechstesZiel();
+
+	void vor(float wert);
+	void rechts(float wert);
+	void hoch(float wert);
 };
-
-
-
-void CKamera::MausBewegung(GL_WindowInit* Fenster)
-{
-	POINT mousePos;	
-	int MitteX = Fenster->width  >> 1;				// Hälfte der Breite und Hohe
-	int MitteY = Fenster->height >> 1;	
-	float winkelY=0;
-	float winkelX=0;
-
-	GetCursorPos(&mousePos); 
-	if((mousePos.x == MitteX) && (mousePos.y == MitteY))
-		return;
-
-	SetCursorPos(MitteX, MitteY);
-
-	winkelX = (float)( (MitteX - mousePos.x) ) / 100.0f;		
-	winkelY = (float)( (MitteY - mousePos.y) ) / 100.0f;		
-
-	m_vPosition=Rotation(winkelX,	m_vOben,m_vZiel,				m_vPosition);
-	m_vPosition=Rotation(winkelY,	(m_vZiel-m_vPosition)^m_vOben,	m_vZiel,m_vPosition);
-}
-
-
-CKamera::CKamera()
-{
-	m_vPosition	=	CVektor(	-21.01F,	6.0F,	-12.0F);
-	m_vZiel		=	CVektor(	0.0F,	0.0F,	0.0F);
-	m_vOben		=	CVektor(	0.0F,	1.0F,	0.0F);
-
-}
-
-void CKamera::Schaue()
-{
-	gluLookAt(m_vPosition.x, m_vPosition.y, m_vPosition.z,	
-			  m_vZiel.x,	 m_vZiel.y,     m_vZiel.z,	
-			  m_vOben.x,	m_vOben.y,		m_vOben.z);
-}

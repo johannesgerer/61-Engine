@@ -11,9 +11,6 @@
 
 CVektor LGS4loesen(CVektor v1,CVektor v2,CVektor v3,CVektor v4)
 {
-	float d =det(v1,v2,v3);
-	float d1=det(v4,v2,v3);
-	float d2=det(v1,v4,v3);
-	float d3=det(v1,v2,v4);
-	return CVektor(d1/d,	d2/d,	d3/d);
+	double d =det(v1,v2,v3);
+	return CVektor(det(v4,v2,v3)/d,	det(v1,v4,v3)/d,	det(v1,v2,v4)/d);
 }
