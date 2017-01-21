@@ -1,0 +1,25 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CPS", "CPS.vcproj", "{F31DD788-46A2-4AF7-BDB8-4A41D885DDDB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VektorTest", "VektorTest\test1.vcproj", "{55619FE6-606B-42B4-8712-40FC3ED1EFF5}"
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{F31DD788-46A2-4AF7-BDB8-4A41D885DDDB}.Debug.ActiveCfg = Debug|Win32
+		{F31DD788-46A2-4AF7-BDB8-4A41D885DDDB}.Debug.Build.0 = Debug|Win32
+		{F31DD788-46A2-4AF7-BDB8-4A41D885DDDB}.Release.ActiveCfg = Release|Win32
+		{F31DD788-46A2-4AF7-BDB8-4A41D885DDDB}.Release.Build.0 = Release|Win32
+		{55619FE6-606B-42B4-8712-40FC3ED1EFF5}.Debug.ActiveCfg = Debug|Win32
+		{55619FE6-606B-42B4-8712-40FC3ED1EFF5}.Release.ActiveCfg = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

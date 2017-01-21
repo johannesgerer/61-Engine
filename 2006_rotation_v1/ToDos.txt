@@ -1,0 +1,2 @@
+-Kamera auf Ziel setzen
+-gitter unendlich mittlaufenlassen

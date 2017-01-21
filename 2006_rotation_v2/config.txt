@@ -1,0 +1,32 @@
+# Auflösung:	Höhe	/	Breite
+#	0			640		/	480
+#	1			800		/	600
+#	2			1024	/	768
+#	3			1152	/	864
+#	4			1280	/	1024
+#	5			1600	/	1200
+#	6			1792	/	1344
+#	7			1920	/	1440
+#	8			2048	/	1536
+#	9			1280	/	800
+aufloesung=9
+
+#soll nach FullScreen Modus gefragt werden?
+#nachFullScreenFragen
+
+#soll, wenn nicht nach FullScreen gefragt wird (s.o.), 
+#automatisch in FullScreen Modus gestartet werden? 
+#Umschalten zur Laufzeit mit F1
+#FullScreen
+
+#Projektion von OpenGL=0 oder vom Programm=1  (keine realistische Licht- und Clippingberechnung!) 
+#Umschalten zur Laufzeit mit F2
+ProjOpenGL
+
+#Normalen aller Flächen anzeigen
+#Umschalten zur Laufzeit mit F4
+#normalen_anzeigen
+
+#bitsProPixel
+bitsProPixel=32
+
