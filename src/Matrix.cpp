@@ -1,5 +1,20 @@
 #include "Mathe.h"
 
+void CMat::Orthogonalisierung(bool spalten)
+{
+	CVektor e1=~(this->operator ()(0));
+	CVektor e2=this->operator ()(1);
+	CVektor e3=this->operator ()(2);
+
+	if(spalten)
+	{
+		e2=~(e2-e1*(e2*e1));
+		e3=~(e3-e1*(e3*e1)-e2*(e3*e2));
+		*this=CMat::CMat(e1,e2,e3,CVektor(),1);
+	}
+
+}
+
 void CMat::Schreiben(bool rechts, int Zeile, bool w)//Schreibt die 4 Zeilen der Matrix rechts oder links auf den Bildschirm
 {
 	for(int i=0;i<4;i++)

@@ -12,10 +12,11 @@ public:
 	CVektor vDrehimpuls;
 	CVektor vKraft;
 	CVektor vMoment;
-	CVektor vWinkelG;
+	CVektor vWinkelG,WinkelG;
 
 	CMat Traegheitstensor;
 
+	int alg;
 	double E_kin_0,Masse,E_pot_0,c;
 	bool Physik, VektorenAnzeigen,Bremse;
 

@@ -68,9 +68,8 @@ bool Stopp;
 void Tastenbelegung();void Rendern (void);double FPS();void ToggleEgo();void ToggleProjOpenGL();
 
 //#########  START: Szene  #############
-CSteuerbar Erde1		(CVektor(0,0,2,1), 31  , 6,1,"Erde");
+CSteuerbar Erde1		(CVektor(0,0,2,1), 31  , 6,1);
 CObjekt R3 (CVektor(0,0,2,1),0,"");
-
 
 void SzeneInitialisieren()
 {
@@ -83,11 +82,12 @@ void SzeneInitialisieren()
 	speed=1;
 
 //Zu Zeichnende Objekte für die Objekte der Szene festlegen
-	Erde1.Quader(0.1,7,10);
+	Erde1.Schiff(5,10,2 );
 	R3.R3(5);
 
-//Start-Geschwindigkeiten festlegen
+//Start-Werte festlegen
 	Erde1.vGeschwindikkeit=CVektor(0,0,0);
+	//Erde1.vDrehimpuls=CVektor(1,20,1,0);
 
 //Position der Kamera 1 auf den Satellit setzen
 	g_Kamera1.PositionsObjektSetzen(&Erde1,CVektor(-0.5,0.5,3,1));
@@ -119,35 +119,41 @@ void Gemischt()
 {
 	
 	CVektor K(1,5,0);
-	CVektor r(9,2,6);
+	CVektor r(0,5,0);
 
 	Erde1.Traegheitstensor.Schreiben(0,9);
 
 	Erde1.vWinkelG.Schreiben(0,6);
-	Erde1.vDrehimpuls.Schreiben(0,7);
+	g_Schrift.Zeile(0,7,0,"%.3f; %.3f; %.3f",Erde1.vDrehimpuls.x,Erde1.vDrehimpuls.y,Erde1.vDrehimpuls.z);
+	//Erde1.vDrehimpuls.Schreiben(0,7);
 
 	if(Erde1.E_kin_0==0)
 		Erde1.E_kin_0=Erde1.vDrehimpuls*(Erde1.Orientierung*!Erde1.Traegheitstensor*!Erde1.Orientierung*Erde1.vDrehimpuls)/2;
 
 	g_Schrift.Zeile(0,16,0,"E_Rot: %.5f",Erde1.vDrehimpuls*Erde1.vWinkelG/2/Erde1.E_kin_0);
 	
-	Erde1.vDrehimpuls=CVektor(1,1,1,0);
-	
+	g_Schrift.Zeile(0,17,0,"Orient: %.15f, %.15f, %.15f, ",!Erde1.Orientierung(0),!Erde1.Orientierung(1),!Erde1.Orientierung(2));
+
+	g_Schrift.Zeile(0,18,0,"Orient: %.15f, %.15f, %.15f, ",Erde1.Orientierung(0)*Erde1.Orientierung(1),Erde1.Orientierung(1)*Erde1.Orientierung(2),Erde1.Orientierung(0)*Erde1.Orientierung(2));
+
 	R3.Orientierung=Erde1.Orientierung;
 
 	//Erde1.paar(K,r,0);
 
 	
-		//VektorZeichnen(2,r,K,0,"K");	
 		
-	//VektorZeichnen(19,Erde1.vPosition,r,1,"r");
 
 	MatStapel.neu(MatTrans(Erde1.vPosition));
 
-	//	VektorZeichnen(15,CVektor(),~Erde1.vMoment*6,0,"M");
 		VektorZeichnen(3,CVektor(),Erde1.vDrehimpuls,0,"L");
 		VektorZeichnen(1,CVektor(),Erde1.vWinkelG*5,0,"W");
 		
+		MatStapel.hinzu(Erde1.Orientierung);
+
+		VektorZeichnen(2,r,K,0,"K");	
+		
+		VektorZeichnen(19,CVektor(),r,1,"r");
+
 		MatStapel.zurueck();
 
 
@@ -172,8 +178,8 @@ void Tastenbelegung()
 		if (Anwendung.Taste.Ereignis [49+i])	Szene.naechsteKamera(i);
 
 //Zeitsteuerung
-	if (Anwendung.Taste.Ereignis [VK_ADD])		{speed+=0.5f*speed;}	//Schneller
-	if (Anwendung.Taste.Ereignis [VK_SUBTRACT])	{speed-=0.5f*speed;}	//Langsamer
+	if (Anwendung.Taste.Ereignis [VK_INSERT])		{speed+=0.5f*speed;}	//Schneller
+	if (Anwendung.Taste.Ereignis [VK_DELETE])	{speed-=0.5f*speed;}	//Langsamer
 	if (Anwendung.Taste.Ereignis [VK_MULTIPLY])	{speed=-speed;}			//Rückwärts
 	if (Anwendung.Taste.Ereignis [VK_SPACE])	Stopp=!Stopp;	//Zeitanhalten
 
@@ -206,10 +212,23 @@ void Tastenbelegung()
 //Szene nocheinmal von Vorne starten lassen
 	if (Anwendung.Taste.Ereignis [VK_F11])		SzeneInitialisieren();
 
-	//if (Anwendung.Taste.Unten	[VK_UP])		(Szene.aktiveKamera())->vor((float)ZeitSchritt*50.0);
-	//if (Anwendung.Taste.Unten	[VK_DOWN])		(Szene.aktiveKamera())->vor(-(float)ZeitSchritt*50.0);
-	//if (Anwendung.Taste.Unten	[VK_LEFT])		(Szene.aktiveKamera())->rechts(-(float)ZeitSchritt*50.0);
-	//if (Anwendung.Taste.Unten	[VK_RIGHT])		(Szene.aktiveKamera())->rechts((float)ZeitSchritt*50.0);
+
+	if (Anwendung.Taste.Unten	[VK_UP])
+	{
+		Erde1.paar(CVektor(10,0,0),CVektor(0,1,2),0);
+	}
+	if (Anwendung.Taste.Unten	[VK_DOWN])	
+	{
+		Erde1.paar(CVektor(-10,0,0),CVektor(0,1,2),0);
+	}
+	if (Anwendung.Taste.Unten	[VK_LEFT])		
+	{
+		Erde1.paar(CVektor(0,10,0),CVektor(0,0,4),0);
+	}
+	if (Anwendung.Taste.Unten	[VK_RIGHT])
+	{
+		Erde1.paar(CVektor(0,-10,0),CVektor(0,0,4),0);
+	}
 
 	Anwendung.Taste.EreignisseLeeren();
 }

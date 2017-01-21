@@ -101,7 +101,7 @@ void CKoerper::PhysikAktualisieren(double sekunden)
 	//Gravitationskräfteberechnung
 
 	CVektor F_g; double F_neu; //Hilfsgrößen
-
+/*
 	for(int i=0;i<m_Szene->Anzahl_Koerper;i++)//Gravitationskräfte zwischem aktuellem und allen anderen Körpern
 		if(this!=m_Szene->m_Koerper[i])
 			if(m_Szene->m_Koerper[i]->Masse!=0 && m_Szene->m_Koerper[i]->Physik)
@@ -112,6 +112,7 @@ void CKoerper::PhysikAktualisieren(double sekunden)
 
 				F_g+=r*F_neu;
 			}
+*/
 
 	//hizufügen der Gravitationskräfte
 	vKraft+=F_g;
@@ -207,22 +208,19 @@ void CKoerper::PhysikAktualisieren(double sekunden)
 
 	vDrehimpuls+=vMoment*sekunden;
 
-	int i=1;
 
-	if(0)
+	switch(alg)
 	{
-			vWinkelG=Orientierung*!Traegheitstensor*!Orientierung*vDrehimpuls;
-			Orientierung=MatRot(vWinkelG,sekunden*!vWinkelG/PI*180)*Orientierung;
-	}
-	else
-	{
-		if(1)
+	case 2:
 		{
+			//konstante Drehung in Objektkoordinaten
 			vWinkelG=!Traegheitstensor*!Orientierung*vDrehimpuls;
 			Orientierung=Orientierung*MatRot(vWinkelG,sekunden*!vWinkelG/PI*180);
+			break;
 		}
-		else
+	case 1:
 		{
+			//konstante Drehung in Weltkoordinaten (alternative Matrixberechnung)
 			vWinkelG=Orientierung*!Traegheitstensor*!Orientierung*vDrehimpuls;
 			double w=!vWinkelG; CMat W=MatKreuz(vWinkelG);
 			
@@ -232,8 +230,19 @@ void CKoerper::PhysikAktualisieren(double sekunden)
 				ma=CMat()+W*Sinus(w*sekunden/PI*180)/w+W*W*(1-Cosinus(w*sekunden/PI*180))/w/w;
 
 			Orientierung=ma*Orientierung;
+			break;
 		}
+	default:
+		{
+				//konstante Drehung in Weltkoordinaten
+				vWinkelG=Orientierung*!Traegheitstensor*!Orientierung*vDrehimpuls;
+				Orientierung=MatRot(vWinkelG,sekunden*!vWinkelG/PI*180)*Orientierung;
+				break;
+		}
+
 	}
+
+	Orientierung.Orthogonalisierung();
 
 	
 }
