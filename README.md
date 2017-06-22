@@ -3,6 +3,8 @@
 
 The folders contain different development stages and versions of the engine.
 
+Only runs on Windows (XP through 10).
+
 # Screenshots
 ![](screenshots/2003_v1.png      )
 ![](screenshots/2004.png         )
